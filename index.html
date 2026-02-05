@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finance V1 — Livro-Caixa</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="paper">
+      <header class="topbar">
+        <div>
+          <div class="kicker">Livro-caixa pessoal</div>
+          <h1>Finance V1</h1>
+          <p class="sub">
+            Receitas e despesas com filtros, edição e backup (exportar/importar JSON).
+          </p>
+        </div>
+
+        <div class="actions">
+          <input id="fileImport" type="file" accept="application/json" hidden />
+          <button id="btnImport" class="btn btn--ghost" type="button">Importar</button>
+          <button id="btnExport" class="btn btn--ghost" type="button">Exportar</button>
+          <button id="btnClear" class="btn btn--danger" type="button">Zerar tudo</button>
+        </div>
+      </header>
+
+      <section class="summary">
+        <div class="chip">
+          <span class="chip__label">Receitas</span>
+          <strong id="incomeTotal" class="chip__value chip__value--pos">R$ 0,00</strong>
+        </div>
+        <div class="chip">
+          <span class="chip__label">Despesas</span>
+          <strong id="expenseTotal" class="chip__value chip__value--neg">R$ 0,00</strong>
+        </div>
+        <div class="chip chip--wide">
+          <span class="chip__label">Saldo</span>
+          <strong id="balanceTotal" class="chip__value">R$ 0,00</strong>
+        </div>
+      </section>
+
+      <main class="layout">
+        <section class="note">
+          <div class="note__head">
+            <h2>Novo lançamento</h2>
+            <span class="stamp">V1</span>
+          </div>
+
+          <form id="txForm" class="form">
+            <label class="field">
+              <span>Descrição</span>
+              <input id="desc" type="text" placeholder="Ex: Mercado, Salário..." maxlength="60" required />
+            </label>
+
+            <div class="row">
+              <label class="field">
+                <span>Valor (R$)</span>
+                <input id="amount" type="number" step="0.01" min="0.01" placeholder="120.50" required />
+              </label>
+
+              <label class="field">
+                <span>Tipo</span>
+                <select id="type" required>
+                  <option value="income">Receita</option>
+                  <option value="expense">Despesa</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="row">
+              <label class="field">
+                <span>Categoria</span>
+                <select id="category" required>
+                  <option value="Salário">Salário</option>
+                  <option value="Freela">Freela</option>
+                  <option value="Alimentação">Alimentação</option>
+                  <option value="Transporte">Transporte</option>
+                  <option value="Moradia">Moradia</option>
+                  <option value="Saúde">Saúde</option>
+                  <option value="Lazer">Lazer</option>
+                  <option value="Educação">Educação</option>
+                  <option value="Outros">Outros</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Data</span>
+                <input id="date" type="date" required />
+              </label>
+            </div>
+
+            <div class="formActions">
+              <button id="btnSubmit" class="btn btn--ink" type="submit">Adicionar</button>
+              <button id="btnCancelEdit" class="btn btn--ghost" type="button" hidden>Cancelar edição</button>
+              <button id="btnReset" class="btn btn--ghost" type="button">Resetar</button>
+            </div>
+
+            <p id="formMsg" class="msg" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="ledger">
+          <div class="ledger__head">
+            <div>
+              <h2>Extrato</h2>
+              <p class="hint">Filtre por mês, tipo e categoria. Clique em ✎ para editar.</p>
+            </div>
+
+            <div class="filters">
+              <label class="field field--mini">
+                <span>Mês</span>
+                <input id="monthFilter" type="month" />
+              </label>
+
+              <label class="field field--mini">
+                <span>Tipo</span>
+                <select id="typeFilter">
+                  <option value="all">Todos</option>
+                  <option value="income">Receitas</option>
+                  <option value="expense">Despesas</option>
+                </select>
+              </label>
+
+              <label class="field field--mini">
+                <span>Categoria</span>
+                <select id="categoryFilter">
+                  <option value="all">Todas</option>
+                </select>
+              </label>
+
+              <button id="btnClearFilters" class="btn btn--ghost" type="button">Limpar</button>
+            </div>
+          </div>
+
+          <div class="table">
+            <div class="table__head">
+              <span>Data</span>
+              <span>Descrição</span>
+              <span>Categoria</span>
+              <span class="right">Valor</span>
+              <span class="right">Ações</span>
+            </div>
+
+            <div id="txList" class="table__body" role="list"></div>
+
+            <div class="table__foot">
+              <span id="txCount" class="hint">0 transações</span>
+              <span class="hint">Backup: exporte JSON e guarde.</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="foot">
+        <span>Finance V1 • conceito “papel” • feito por você</span>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
