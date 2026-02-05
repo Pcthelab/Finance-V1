@@ -4,7 +4,7 @@ Um controle financeiro pessoal estilo “extrato”, com visual editorial (papel
 
 
 ## Preview
-![Preview do projeto](./assetspreview-1.png)
+![Preview do projeto](./assets/preview-1.png)
 
 
 ## Funcionalidades
@@ -50,4 +50,5 @@ finance-v1/
 - Modo impressão (CSS print) para gerar PDF do mês
 
 ## Autor
+
 Juan Ygor Delgado 
